@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+
+  <op:config name="%ADC_NumChannelsDefault%" value="4" />
+
+  <ManufacturerData>
+    <Manufacturer>
+      <ApplicationPrograms>
+        <ApplicationProgram>
+          <Static>
+            <ParameterTypes>
+              <ParameterType Id="%AID%_PT-ADCNumChannels" Name="ADCNumChannels">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="%N%" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCYesNo" Name="ADCYesNo">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Nein" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Ja" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCActiveInactive" Name="ADCActiveInactive">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="inaktiv" Value="0" Id="%ENID%" />
+                  <Enumeration Text="aktiv" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCValueWORD" Name="ADCValueWORD">
+                <TypeNumber SizeInBit="16" Type="signedInt" minInclusive="0" maxInclusive="30000" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCValueI16" Name="ADCValueI16">
+                <TypeNumber SizeInBit="16" Type="signedInt" minInclusive="-30000" maxInclusive="30000" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCPercentage" Name="ADCPercentage">
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="0" maxInclusive="100" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCSensorCalc" Name="ADCSensorCalc">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="inaktiv" Value="0" Id="%ENID%" />
+                  <Enumeration Text="ADC-Wert (mV)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="SMT50-Feuchte" Value="2" Id="%ENID%" />
+                  <Enumeration Text="SMT50-Temp" Value="3" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCInputdividor" Name="ADCInputdividor">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="0-5V" Value="0" Id="%ENID%" />
+                  <Enumeration Text="0-12V" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCResolution" Name="ADCResolution">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="12Bit" Value="0" Id="%ENID%" />
+                  <Enumeration Text="14Bit" Value="1" Id="%ENID%" />
+                  <Enumeration Text="16Bit" Value="2" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ADCSensorType" Name="ADCSensorType">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="Spannung (mV)" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Temperatur (°C)" Value="1" Id="%ENID%" />
+                  <Enumeration Text="Feuchte (%)" Value="2" Id="%ENID%" />
+                  <Enumeration Text="CO2 (ppm)" Value="3" Id="%ENID%" />
+                  <Enumeration Text="LUX (Lux)" Value="4" Id="%ENID%" />
+                  <Enumeration Text="Druck (Pa)" Value="5" Id="%ENID%" />
+                  <Enumeration Text="Strömung (l/h)" Value="6" Id="%ENID%" />
+                  <Enumeration Text="Regenmenge (l/m²)" Value="7" Id="%ENID%" />
+                  <Enumeration Text="Windgeschwindigkeit (m/s)" Value="8" Id="%ENID%" />
+                  <Enumeration Text="Prozent (%)" Value="9" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
+            </ParameterTypes>
+            <Parameters>
+              <Parameter Id="%AID%_P-%TT%00001" Name="VisibleChannels" ParameterType="%AID%_PT-ADCNumChannels" Text="Verfügbare Kanäle" Value="%ADC_NumChannelsDefault%" SuffixText=" von %N%" />
+            </Parameters>
+            <ParameterRefs>
+              <ParameterRef Id="%AID%_P-%TT%00001_R-%TT%0000101" RefId="%AID%_P-%TT%00001" />
+            </ParameterRefs>
+            <ComObjectTable>
+            </ComObjectTable>
+            <ComObjectRefs>
+            </ComObjectRefs>
+          </Static>
+          <Dynamic>
+              <Channel Id="%AID%_CH-%PREFIX%" Name="Standard" Number="%PREFIX%" Text="Analogeingänge" Icon="alpha-v-circle-outline">
+              <ParameterBlock Id="%AID%_PB-nnn" Name="ADC" Text="Allgemein" Icon="cog-outline" HelpContext="Empty" ShowInComObjectTree="true">
+                <!-- Version -->
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Analogeingänge" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Version: %ModuleVersion%" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /> 
+
+                <!-- Verfuegbare-Kanaele -->
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanalauswahl" UIHint="Headline" />
+                <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Table" Text="#">
+                  <Rows>
+                    <op:include href="ADCInputChannel.templ.xml" xpath="//Dynamic/Channel/ParameterBlock[@Name='Row-List']/Rows/*"
+                      type="template" prefix="ADC" IsInner="true" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Width="60%" Text="Beschreibung des Eingangs" />
+                    <Column Id="%AID%_PB-nnn_C-2" Width="40%" Text="Funktion" />
+                  </Columns>
+                  <op:include href="ADCInputChannel.templ.xml" xpath="//Dynamic/Channel/ParameterBlock[@Name='Channel-List']/*"
+                    type="template" prefix="ADC" IsInner="true" />
+                </ParameterBlock>
+                <op:include href="ADCInputChannel.templ.xml" xpath="//Dynamic/ChannelIndependentBlock/*"
+                  type="template" prefix="ADC" IsInner="true" />
+              </ParameterBlock>
+            </Channel>
+          </Dynamic>
+        </ApplicationProgram>
+      </ApplicationPrograms>
+      <Baggages>
+        <Baggage TargetPath="" Name="Help_de.zip" Id="%FILE-HELP-de%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="" Name="Icons.zip" Id="%FILE-ICONS%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+      </Baggages>
+    </Manufacturer>
+  </ManufacturerData>
+</KNX>

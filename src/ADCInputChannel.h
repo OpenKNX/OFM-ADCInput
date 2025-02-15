@@ -9,6 +9,8 @@ class ADCInputChannel : public OpenKNX::Channel
     void processPeriodicSend();
     void sendState();
 
+    long _adcValue;
+
     bool _paramActive;
     uint8_t _paramOpen;
     uint8_t _paramClose;
@@ -29,6 +31,8 @@ class ADCInputChannel : public OpenKNX::Channel
     void setup() override;
     void loop() override;
     const std::string name() override;
+    
+    void getADC_value(long value);
 
     //void setHardwareState(bool state);
     bool isActive();

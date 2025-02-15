@@ -1,131 +1,79 @@
 #include "ADCInputChannel.h"
 
-ADCInputChannel::ADCInputChannel(uint8_t index)
-{
-    _channelIndex = index;
+ADCInputChannel::ADCInputChannel(uint8_t index) { _channelIndex = index; }
+
+const std::string ADCInputChannel::name() { return "ADCInput"; }
+
+void ADCInputChannel::setup() {
+  if (ParamADC_CHSensorType == 0)
+    return;
+
+   // KoBI_ChannelOutput.valueNoSend(false, DPT_Switch);
+
+  // Debug
+  logTraceP("paramSensorTyp: %i", ParamADC_CHSensorType);
+  logTraceP("paramSendCycle: %i", ParamADC_CHSendcycletime);
+  logTraceP("paramSendABS: %i", ParamADC_CHSendenAbsolut);
+  logTraceP("paramSendREL: %i", ParamADC_CHSendenRelativ);
+  logTraceP("paramVoltKorr: %i", ParamADC_CHVoltageCorrection);
 }
+void ADCInputChannel::loop() {
+  if (ParamADC_CHSensorType == 0)
+    return;
 
-const std::string ADCInputChannel::name()
-{
-    return "ADCInput";
-}
-
-void ADCInputChannel::setup()
-{
-    if (ParamADC_CHSensorType == 0)
-        return;
-
-        
-    //KoBI_ChannelOutput.valueNoSend(false, DPT_Switch);
-
-    // Debug
-    logTraceP("paramSensorTyp: %i", ParamADC_CHSensorType);
-    logTraceP("paramSendCycle: %i", ParamADC_CHSendcycletime);
-    logTraceP("paramSendABS: %i", ParamADC_CHSendenAbsolut);
-    logTraceP("paramSendREL: %i", ParamADC_CHSendenRelativ);
-    logTraceP("paramVoltKorr: %i", ParamADC_CHVoltageCorrection);
-    
-}
-void ADCInputChannel::loop()
-{
-    if (ParamADC_CHSensorType == 0)
-        return;
-
-    processInput();
-    processPeriodicSend();
-}
-
-/*
-void ADCInputChannel::setHardwareState(bool state)
-{
-    if (!ParamBI_ChannelActive)
-        return;
-
-    if (state == _currentHardwareState)
-        return;
-
-    logTraceP("setHardwareState %i", state);
-    _currentHardwareState = state;
-}
-*/
-
-void ADCInputChannel::processInput()
-{
-    // no hw state available
-    /*
-    if (_currentHardwareState == -1)
-        return;
-
-    if (debounce())
-        return;
-
-    if (_currentHardwareState != _currentState)
-    {
-
-        _currentState = _currentHardwareState;
-        sendState();
-    }
-    */
+  processPeriodicSend();
 }
 
 
-void ADCInputChannel::processPeriodicSend()
+void ADCInputChannel::getADC_value(long value)
 {
-    
-    uint32_t paramValue = ParamADC_CHSendcycletime;
+    _adcValue = value;
 
-    // no hw state available
-    if (_currentState == -1)
-        return;
+    // Hier muss senden bei Wertänderung drin sein !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    // periodic send is disabled
-    if (paramValue == 0)
-        return;
-
-    // first run - skip
-    if (_lastPeriodicSend == 0)
-    {
-        _lastPeriodicSend = millis();
-        return;
-    }
-
-    if (delayCheck(_lastPeriodicSend, paramValue))
-    {
-        _lastPeriodicSend = millis();
-        sendState();
-    }
-        
 }
 
-void ADCInputChannel::sendState()
-{
-    /*
-    int8_t state = -1;
-    if (_currentState && ParamBI_ChannelClose == 1) // Open - send 0
-        state = false;
+void ADCInputChannel::processPeriodicSend() {
 
-    if (_currentState && ParamBI_ChannelClose == 2) // Closed - send 1
-        state = true;
+  uint32_t paramValue = ParamADC_CHSendcycletime;
 
-    if (!_currentState && ParamBI_ChannelOpen == 1) // OPen - send 0
-        state = false;
+  // no hw state available
+  if (_currentState == -1)
+    return;
 
-    if (!_currentState && ParamBI_ChannelOpen == 2) // Closed - send 1
-        state = true;
+  // periodic send is disabled
+  if (paramValue == 0)
+    return;
 
-    if (state == -1)
-        return;
+  // first run - skip
+  if (_lastPeriodicSend == 0) {
+    _lastPeriodicSend = millis();
+    return;
+  }
 
-    logDebugP("sendState: %i", state);
-    */
-   float TEst = 2.7;
-   KoADC_ChannelOutput.value(TEst2, getDPT(VAL_DPT_9));
-    
+  if (delayCheck(_lastPeriodicSend, paramValue)) {
+    _lastPeriodicSend = millis();
+    sendState();
+  }
 }
 
-bool ADCInputChannel::isActive()
-{
-    if(ParamADC_CHSensorType > 0)
+void ADCInputChannel::sendState() {
+
+
+  // HIER abfragen welche TYP: mV ; SMT50, 
+  
+  // und auch bei mV welche Einheit (V, ....)
+
+
+  logDebugP("sendState: %i", _adcValue);
+  
+  float Test = _adcValue/ 10.0;
+  KoADC_ChannelOutput.value(Test, DPT_Value_Volt);
+}
+
+bool ADCInputChannel::isActive() {
+  if (ParamADC_CHSensorType > 0)
     return true;
-    else false;
+  else
+    return false;
 }

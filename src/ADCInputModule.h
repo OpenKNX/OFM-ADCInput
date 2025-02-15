@@ -1,6 +1,10 @@
 #include "ADCInputChannel.h"
 #include "OpenKNX/Module.h"
 #include "hardware.h"
+#include "ADS1X15.h"
+
+
+#define AS1115_MAX_CH 4
 
 
 class ADCInputModule : public OpenKNX::Module
@@ -14,12 +18,11 @@ class ADCInputModule : public OpenKNX::Module
 
   private:
     void processHardwareInputs();
+    void processInput();
+  
+    long adc_Value[AS1115_MAX_CH] = {1}; 
 
-    uint32_t _lastHardwareQuery = 0;
-
-    //const uint8_t _gpioPins[OPENKNX_BI_GPIO_COUNT] = {OPENKNX_BI_GPIO_PINS};
-
-    //ADCInputChannel* _channels[OPENKNX_BI_GPIO_COUNT];
+    ADCInputChannel* _channels[AS1115_MAX_CH];
 };
 
 extern ADCInputModule openknxADCInputModule;

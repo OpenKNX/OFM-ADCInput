@@ -1,83 +1,119 @@
 #include "ADCInputModule.h"
 
+#define i2cADC_ADS1115 0x49
 
+ADS1115 I2CADS1115(i2cADC_ADS1115, &Wire1);
 
-const std::string ADCInputModule::name()
-{
-    return "BasicADCInput";
+enum State {
+  Set = 1,
+  Read = 2,
+};
+State ADC_State = Set;
+
+enum ADC_enum_CH {
+  ADC_1,
+  ADC_2,
+  ADC_3,
+  ADC_4,
+};
+ADC_enum_CH ADC_CH = ADC_1;
+
+const std::string ADCInputModule::name() { return "BasicADCInput"; }
+
+const std::string ADCInputModule::version() { return MODULE_ADCInput_Version; }
+
+void ADCInputModule::setup() {
+
+  Serial.print("  ADS1115 TOP:");
+  I2CADS1115.begin();
+  if (I2CADS1115.isConnected()) {
+    // I2C_adc.setGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 3mV
+    // I2C_adc.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV
+    // I2C_adc.setGain(GAIN_TWO);        // 2x gain   +/- 2.048V  1 bit = 1mV
+    // I2C_adc.setGain(GAIN_FOUR);       // 4x gain   +/- 1.024V  1 bit = 0.5mV
+    // I2C_adc.setGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.25mV
+    // I2C_adc.setGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit =
+    // 0.125mV
+    I2CADS1115.setGain(2);
+    // ADC_to_voltage_factor = ADS1115_TOP.toVoltage(); //  voltage factor
+    Serial.println(" run");
+  } else {
+    Serial.println(" ERROR");
+  }
+
+  for (uint8_t i = 0; i < AS1115_MAX_CH; i++) {
+    _channels[i] = new ADCInputChannel(i);
+    _channels[i]->setup();
+  }
 }
 
-const std::string ADCInputModule::version()
-{
-    return MODULE_ADCInput_Version;
+void ADCInputModule::loop() {
+
+    processInput();
+
+  for (uint8_t i = 0; i < AS1115_MAX_CH; i++)
+    _channels[i]->loop();
 }
 
-void ADCInputModule::setup()
-{
-    /*
-    if (_gpioPins == nullptr)
-    {
-        logErrorP("No GPIO pins defined, module inactive");
-        return;
+void ADCInputModule::processInput() {
+  // no hw state available
+
+  switch (ADC_State) {
+  case Set:
+    switch (ADC_CH) {
+    case ADC_1:
+      I2CADS1115.requestADC(0); //  CH1 -> liegt auch ADC1
+      break;
+    case ADC_2:
+      I2CADS1115.requestADC(1); //  CH2 -> liegt auch ADC2
+      break;
+    case ADC_3:
+      I2CADS1115.requestADC(2); //  CH3 -> liegt auch ADC3
+      break;
+    case ADC_4:
+      I2CADS1115.requestADC(3); // CH4  > liegt auch ADC4
+      break;
+    default:
+      Serial.println("Wrong StateADC TOP CH");
+      break;
     }
+    ADC_State = Read;
+    break;
+  case Read:
 
-    for (uint8_t i = 0; i < MIN(BI_ChannelCount, OPENKNX_BI_GPIO_COUNT); i++)
-    {
-#if OPENKNX_BI_ONLEVEL == LOW
-        pinMode(_gpioPins[i], INPUT_PULLUP);
-#else // OPENKNX_BI_ONLEVEL == HIGH
-        pinMode(_gpioPins[i], INPUT_PULLDOWN);
-#endif
+    if (I2CADS1115.isBusy() == false) {
+      switch (ADC_CH) {
+      case ADC_1: // CH1
+        _channels[0]->getADC_value(I2CADS1115.getValue());
+        ADC_CH = ADC_2;
+        break;
+      case ADC_2: // CH2
+        _channels[1]->getADC_value(I2CADS1115.getValue());
+        ADC_CH = ADC_3;
+        break;
+      case ADC_3: // CH3
+        _channels[2]->getADC_value(I2CADS1115.getValue());
+        ADC_CH = ADC_4;
+        break;
+      case ADC_4: // HSS
+        _channels[3]->getADC_value(I2CADS1115.getValue());
+        ADC_CH = ADC_1;
+        ADC_State = Set; // Needed because of the Return true
+        // return true;
+        break;
 
-#if defined(OPENKNX_BI_PULSE) && OPENKNX_BI_PULSE != -1
-        pinMode(OPENKNX_BI_PULSE, OUTPUT);
-#endif
-
-        _channels[i] = new BinaryInputChannel(i);
-        _channels[i]->setup();
+      default:
+        Serial.println("Wrong StateADC TOP CH");
+        break;
+      }
+      ADC_State = Set;
     }
-    */
-}
+    break;
 
-void ADCInputModule::loop()
-{
-    /*
-    if (_gpioPins == nullptr)
-        return;
-    */   
-    processHardwareInputs();
-    /*
-    for (uint8_t i = 0; i < MIN(BI_ChannelCount, OPENKNX_BI_GPIO_COUNT); i++)
-        _channels[i]->loop();
-    */    
-}
-
-void ADCInputModule::processHardwareInputs()
-{
-    /*
-    if (_gpioPins == nullptr)
-        return;
-
-#if defined(OPENKNX_BI_PULSE) && OPENKNX_BI_PULSE != -1
-    if (!delayCheck(_lastHardwareQuery, OPENKNX_BI_PULSE_PAUSE_TIME))
-        return;
-
-    digitalWrite(OPENKNX_BI_PULSE, true);
-    delayMicroseconds(OPENKNX_BI_PULSE_WAIT_TIME);
-#endif
-
-    for (uint8_t i = 0; i < MIN(BI_ChannelCount, OPENKNX_BI_GPIO_COUNT); i++)
-    {
-        if (_channels[i]->isActive())
-            _channels[i]->setHardwareState(digitalRead(_gpioPins[i]) == OPENKNX_BI_ONLEVEL);
-    }
-
-#if defined(OPENKNX_BI_PULSE) && OPENKNX_BI_PULSE != -1
-    digitalWrite(OPENKNX_BI_PULSE, false);
-    _lastHardwareQuery = millis();
-#endif
-   */
+  default:
+    Serial.println("Wrong StateADC TOP");
+    break;
+  }
 }
 
 ADCInputModule openknxADCInputModule;
-

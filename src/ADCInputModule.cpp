@@ -1,8 +1,31 @@
 #include "ADCInputModule.h"
 
-#define i2cADC_ADS1115 0x49
 
+
+//Defines für HArdware.h
+
+/* Input source RP2040 ADC oder I2C-ADC */
+//#define ADC_Input_RP2040_ADC 
+#define ADC_Input_Type_ADS1115 
+
+/* Input source RP2040  */
+//#define GPIO_PIN 26
+
+/* Input source I2C ADS1115  */
+//#define WIRE0
+#define WIRE1
+#define i2cADC_ADS1115 0x48
+#define ADS1115_SDA_PIN 14
+#define ADS1115_SCL_PIN 15
+
+#ifdef ADC_Input_Type_ADS1115
+#ifdef WIRE0
+ADS1115 I2CADS1115(i2cADC_ADS1115, &Wire);
+#endif
+#ifdef WIRE1
 ADS1115 I2CADS1115(i2cADC_ADS1115, &Wire1);
+#endif
+#endif
 
 enum State {
   Set = 1,
@@ -18,13 +41,28 @@ enum ADC_enum_CH {
 };
 ADC_enum_CH ADC_CH = ADC_1;
 
-const std::string ADCInputModule::name() { return "BasicADCInput"; }
+const std::string ADCInputModule::name() { return "ADCInput"; }
 
 const std::string ADCInputModule::version() { return MODULE_ADCInput_Version; }
 
-void ADCInputModule::setup() {
+void ADCInputModule::setup() 
+  {
 
-  Serial.print("  ADS1115 TOP:");
+  #ifdef ADC_Input_Type_ADS1115  
+  // I2C Init
+  #ifdef WIRE0
+  Wire.setSDA(ADS1115_SDA_PIN);
+  Wire.setSCL(ADS1115_SCL_PIN);
+  Wire.begin();  
+  #endif
+  #ifdef WIRE1
+  Wire1.setSDA(ADS1115_SDA_PIN);
+  Wire1.setSCL(ADS1115_SCL_PIN);
+  Wire1.begin();  
+  #endif
+  
+  Serial.print("  ADS1115:");
+  
   I2CADS1115.begin();
   if (I2CADS1115.isConnected()) {
     // I2C_adc.setGain(GAIN_TWOTHIRDS);  // 2/3x gain +/- 6.144V  1 bit = 3mV
@@ -40,8 +78,16 @@ void ADCInputModule::setup() {
   } else {
     Serial.println(" ERROR");
   }
+  #endif
 
-  for (uint8_t i = 0; i < AS1115_MAX_CH; i++) {
+
+  for (uint8_t i = 0; i < ADC_ChannelCount; i++) {
+    #ifdef ADC_Input_Type_ADS1115
+    if(i==AS1115_MAX_CH)
+    {
+      return;
+    }
+    #endif
     _channels[i] = new ADCInputChannel(i);
     _channels[i]->setup();
   }
@@ -58,6 +104,9 @@ void ADCInputModule::loop() {
 void ADCInputModule::processInput() {
   // no hw state available
 
+
+  // Process für ADS1115
+#ifdef ADC_Input_Type_ADS1115  
   switch (ADC_State) {
   case Set:
     switch (ADC_CH) {
@@ -79,8 +128,8 @@ void ADCInputModule::processInput() {
     }
     ADC_State = Read;
     break;
-  case Read:
-
+  
+    case Read:
     if (I2CADS1115.isBusy() == false) {
       switch (ADC_CH) {
       case ADC_1: // CH1
@@ -114,6 +163,9 @@ void ADCInputModule::processInput() {
     Serial.println("Wrong StateADC TOP");
     break;
   }
+#endif // ENDE Process ADS1115
+
+
 }
 
 ADCInputModule openknxADCInputModule;

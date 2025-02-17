@@ -8,9 +8,23 @@ class ADCInputChannel : public OpenKNX::Channel
     void processInput();
     void processPeriodicSend();
     void sendState();
+    float calculateSensorValueLinearFunction( float a, float b);
+    float getPinInputVoltage();   // Voltage in mV
+    float checkZero(float value);
 
+    union InputADCValuesOLD
+    {
+    float ladcValue;
+    // uint16_t ladcValueU16[ADC_ChannelCount];
+    // uint8_t lsoilmoistureU8[ADC_ChannelCount];
+   } valueOld;
+
+    uint8_t _channelIndex;
     long _adcValue;
 
+    uint32_t _lastPeriodicSend = 0;
+
+    /*
     bool _paramActive;
     uint8_t _paramOpen;
     uint8_t _paramClose;
@@ -23,7 +37,8 @@ class ADCInputChannel : public OpenKNX::Channel
     int8_t _currentHardwareState = -1;
 
     uint32_t _lastDebounceTime = 0;
-    uint32_t _lastPeriodicSend = 0;
+    
+    */
 
   public:
     ADCInputChannel(uint8_t index);

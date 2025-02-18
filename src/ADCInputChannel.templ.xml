@@ -166,40 +166,40 @@
                     <ParameterBlock Id="%AID%_PB-ADC%C%Wrapper" Inline="true">
                       <ParameterSeparator Id="%AID%_PS-nnn" Text="Einstellungen ADC-Input %C%"
                         UIHint="Headline" />
-                      <ParameterRefRef RefId="%AID%_P-%TT%%CC%000_R-%TT%%CC%00001" IndentLevel="1" />
+                      <ParameterRefRef RefId="%AID%_P-%TT%%CC%000_R-%TT%%CC%00001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>
                       <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                       <choose ParamRefId="%AID%_UP-%TT%%CC%001_R-%TT%%CC%00101">
                         <when test="1">  <!-- Sensor: ADC Wert -->
                           <ParameterRefRef RefId="%AID%_UP-%TT%%CC%007_R-%TT%%CC%00701" IndentLevel="1" HelpContext="ADC-Korrekturfaktor"/>  <!--
                             Korrekturfaktor -->
                           <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%008_R-%TT%%CC%00801" IndentLevel="1" />  <!-- Meßwert
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%008_R-%TT%%CC%00801" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!-- Meßwert
                             (mV, °C, Pa, m/s, ..) -->
                           <choose ParamRefId="%AID%_UP-%TT%%CC%008_R-%TT%%CC%00801">
                             <when test="0">  <!-- Spannung -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00301" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00301" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (mV) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
-                              <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00001" />  <!-- KO:
+                              <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00001" HelpContext="ADC-KanalEinstellungen"/>  <!-- KO:
                                 ADC Wert (mV)-->
                             </when>
                             <when test="1">  <!-- Temperatur-->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00302" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00302" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (°C) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00002" />  <!-- KO:
                                 ADC Wert (°C)-->
@@ -207,14 +207,14 @@
                             <when test="2">  <!-- Feuchte -->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00303" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00303" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (%) -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00003" />  <!-- KO:
                                 ADC Wert (%)-->
@@ -222,16 +222,16 @@
                             <when test="3">  <!-- CO2 -->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00304" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00304" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (ppm) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00004" />  <!-- KO:
                                 ADC Wert (ppm)-->
@@ -239,16 +239,16 @@
                             <when test="4">  <!-- LUX-->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00305" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00305" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (Lux) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00005" />  <!-- KO:
                                 ADC Wert (lux)-->
@@ -256,16 +256,16 @@
                             <when test="5">  <!-- Druck-->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00306" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00306" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (Pa) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00006" />  <!-- KO:
                                 ADC Wert (Pa)-->
@@ -273,16 +273,16 @@
                             <when test="6">  <!-- Strömung -->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00307" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00307" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (l/h) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00007" />  <!-- KO:
                                 ADC Wert (l/h)-->
@@ -290,16 +290,16 @@
                             <when test="7">  <!-- Regenmenge -->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00308" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00308" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (l/m²V) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00008" />  <!-- KO:
                                 ADC Wert (l/m²)-->
@@ -307,76 +307,60 @@
                             <when test="8">  <!-- Windgeschwindigkeit -->
                               <ParameterSeparator Id="%AID%_PS-nnn"
                                 Text="Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, dann kann diese auch über zwei Punkte (x,y) der Sensor-Kennlinie bestimmmt werden" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%009_R-%TT%%CC%00901" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung m -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%010_R-%TT%%CC%01001" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Geradengleichung b  -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00309" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00309" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (m/s) -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00009" />  <!-- KO:
                                 ADC Wert (m/s)-->
                             </when>
                             <when test="9">  <!-- Prozent -->
                               <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden -->
-                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00303" IndentLevel="1" />  <!--
+                              <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00303" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Absolut (%) -->
                               <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00010" />  <!-- KO:
                                 ADC Wert (%)-->
                             </when>
                           </choose>
                           <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" IndentLevel="1" />  <!-- Wert
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!-- Wert
                             gläten -->
                         </when>
                         <when test="2">  <!-- Sensor: SMT50-Feuchte -->
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Mit hilfe des Korrekturfaktors können, wenn benötigt, die Toleranzen des Messsystems ausgeglichen werden." />
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Um die 'vom Device gemessene Spannung' zu bestimmen, muss zuvor der Sensortyp auf 'ADC-Wert(mV)' und die Meßwerteinheit auf 'Spannung (mV)' gestellt werden. Dazu ein passendes KO belegt werden, welches den Wert ausgibt." />
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Danach kann der Korrekturfaktor bestimmt und eingetragen werden und der Sensortyp und die Meßwerteinheit auf die gewünschte Einheit gestellt werden." />
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Korrekturfaktor = gemessene Spannung(mV) am Device-Pin / vom Device ausgegebene Spannung(mV)" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%007_R-%TT%%CC%00701" IndentLevel="1" />  <!--
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%007_R-%TT%%CC%00701" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!--
                             Korrekturfaktor -->
                           <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!-- Zyklisch
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!-- Zyklisch
                             Senden -->
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00303" IndentLevel="1" />  <!-- Zyklisch
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00303" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!-- Zyklisch
                             Senden Absolut (%)-->
                           <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" IndentLevel="1" />  <!-- Wert
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!-- Wert
                             gläten -->
                           <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00012" />  <!-- KO:
                             Bodenfeuchte -->
                         </when>
                         <when test="3">  <!-- Sensor: SMT50-Temp -->
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Mit hilfe des Korrekturfaktors können, wenn benötigt, die Toleranzen des Messsystems ausgeglichen werden." />
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Um die 'vom Device gemessene Spannung' zu bestimmen, muss zuvor der Sensortyp auf 'ADC-Wert(mV)' und die Meßwerteinheit auf 'Spannung (mV)' gestellt werden. Dazu ein passendes KO belegt werden, welches den Wert ausgibt." />
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Danach kann der Korrekturfaktor bestimmt und eingetragen werden und der Sensortyp und die Meßwerteinheit auf die gewünschte Einheit gestellt werden." />
-                          <ParameterSeparator Id="%AID%_PS-nnn"
-                            Text="Korrekturfaktor = gemessene Spannung(mV) am Device-Pin / vom Device ausgegebene Spannung(mV)" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%007_R-%TT%%CC%00701" IndentLevel="1" />  <!--
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%007_R-%TT%%CC%00701" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!--
                             Korrekturfaktor -->
                           <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" />  <!-- Zyklisch
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%002_R-%TT%%CC%00201" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!-- Zyklisch
                             Senden -->
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00302" IndentLevel="1" />  <!-- Zyklisch
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%003_R-%TT%%CC%00302" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!-- Zyklisch
                             Senden Absolut (*0.1°C)-->
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" />  <!-- Zyklisch
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!-- Zyklisch
                             Senden Relativ -->
                           <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" IndentLevel="1" />  <!-- Wert
+                          <ParameterRefRef RefId="%AID%_UP-%TT%%CC%005_R-%TT%%CC%00501" IndentLevel="1" HelpContext="ADC-KanalEinstellungen_SMT50"/>  <!-- Wert
                             gläten -->
                           <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00011" />  <!-- KO: Temp -->
                         </when>

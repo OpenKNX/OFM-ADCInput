@@ -1,31 +1,9 @@
 #include "ADCInputModule.h"
 
+#if defined(OPENKNX_ADC_ADS_WIRE) && defined(OPENKNX_ADC_ADS_ADDR) && defined(OPENKNX_ADC_ADS_SDA) && defined(OPENKNX_ADC_ADS_SCL) && defined(OPENKNX_ADC_ADS_GAIN) && ADC_ChannelCount > 0
 
 
-//Defines für HArdware.h
-
-/* Input source RP2040 ADC oder I2C-ADC */
-//#define ADC_Input_RP2040_ADC 
-#define ADC_Input_Type_ADS1115 
-
-/* Input source RP2040  */
-//#define GPIO_PIN 26
-
-/* Input source I2C ADS1115  */
-//#define WIRE0
-#define WIRE1
-#define i2cADC_ADS1115 0x48
-#define ADS1115_SDA_PIN 14
-#define ADS1115_SCL_PIN 15
-
-#ifdef ADC_Input_Type_ADS1115
-#ifdef WIRE0
-ADS1115 I2CADS1115(i2cADC_ADS1115, &Wire);
-#endif
-#ifdef WIRE1
-ADS1115 I2CADS1115(i2cADC_ADS1115, &Wire1);
-#endif
-#endif
+ADS1115 I2CADS1115(OPENKNX_ADC_ADS_ADDR, &OPENKNX_ADC_ADS_WIRE);
 
 enum State {
   Set = 1,
@@ -33,7 +11,7 @@ enum State {
 };
 State ADC_State = Set;
 
-enum ADC_enum_CH {
+enum ADC_enum_CH { 
   ADC_1,
   ADC_2,
   ADC_3,
@@ -48,18 +26,9 @@ const std::string ADCInputModule::version() { return MODULE_ADCInput_Version; }
 void ADCInputModule::setup() 
   {
 
-  #ifdef ADC_Input_Type_ADS1115  
-  // I2C Init
-  #ifdef WIRE0
-  Wire.setSDA(ADS1115_SDA_PIN);
-  Wire.setSCL(ADS1115_SCL_PIN);
-  Wire.begin();  
-  #endif
-  #ifdef WIRE1
-  Wire1.setSDA(ADS1115_SDA_PIN);
-  Wire1.setSCL(ADS1115_SCL_PIN);
-  Wire1.begin();  
-  #endif
+  OPENKNX_ADC_ADS_WIRE.setSDA(OPENKNX_ADC_ADS_SDA);
+  OPENKNX_ADC_ADS_WIRE.setSCL(OPENKNX_ADC_ADS_SCL);
+  OPENKNX_ADC_ADS_WIRE.begin();  
   
   Serial.print("  ADS1115:");
   
@@ -72,22 +41,15 @@ void ADCInputModule::setup()
     // I2C_adc.setGain(GAIN_EIGHT);      // 8x gain   +/- 0.512V  1 bit = 0.25mV
     // I2C_adc.setGain(GAIN_SIXTEEN);    // 16x gain  +/- 0.256V  1 bit =
     // 0.125mV
-    I2CADS1115.setGain(2);
+    I2CADS1115.setGain(OPENKNX_ADC_ADS_GAIN);
     // ADC_to_voltage_factor = ADS1115_TOP.toVoltage(); //  voltage factor
     Serial.println(" run");
   } else {
     Serial.println(" ERROR");
   }
-  #endif
 
 
-  for (uint8_t i = 0; i < ADC_ChannelCount; i++) {
-    #ifdef ADC_Input_Type_ADS1115
-    if(i==AS1115_MAX_CH)
-    {
-      return;
-    }
-    #endif
+  for (uint8_t i = 0; i < MIN(ADC_ChannelCount,AS1115_MAX_CH); i++) {
     _channels[i] = new ADCInputChannel(i);
     _channels[i]->setup();
   }
@@ -97,7 +59,7 @@ void ADCInputModule::loop() {
 
     processInput();
 
-  for (uint8_t i = 0; i < AS1115_MAX_CH; i++)
+  for (uint8_t i = 0; i < MIN(ADC_ChannelCount,AS1115_MAX_CH); i++)
     _channels[i]->loop();
 }
 
@@ -106,7 +68,6 @@ void ADCInputModule::processInput() {
 
 
   // Process für ADS1115
-#ifdef ADC_Input_Type_ADS1115  
   switch (ADC_State) {
   case Set:
     switch (ADC_CH) {
@@ -163,9 +124,8 @@ void ADCInputModule::processInput() {
     Serial.println("Wrong StateADC TOP");
     break;
   }
-#endif // ENDE Process ADS1115
-
-
 }
 
 ADCInputModule openknxADCInputModule;
+
+#endif

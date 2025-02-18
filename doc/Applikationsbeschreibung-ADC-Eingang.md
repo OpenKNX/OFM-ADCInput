@@ -7,6 +7,8 @@ Eine vollständige Applikationsbeschreibung ist unter folgendem Link verfügbar:
 DOCCONTENT -->
 
 Mit dem ADCInput Modul kann man Analoge Messwerte einlesen und sie direkt zum passenden Sensor umwandeln lassen. 
+
+Der Code basiert aktuell auf den I2C ADS1115 16Bit ADC. Analog-Eoingänge des RP2040 können aktuell nicht damit verwendet werden. 
 <!-- DOCEND -->
 
 ## **Allgemein**
@@ -62,7 +64,7 @@ Steigung der Gerade
 #### Wert b
 Offset der Gerade
 
-### Zyklisch senden
+### zyklisch senden
 Hier kann die Zeit angegeben werden, nach der das letzte gesendete Signal erneut gesendet werden soll. Dieser Vorgang wird ohne Unterbrechung wiederholt.
 
 ### senden bei absoluter Abweichung

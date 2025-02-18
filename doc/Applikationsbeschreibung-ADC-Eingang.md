@@ -1,4 +1,4 @@
-# **Binäreingänge**
+# **Analog-Eingäne**
 
 <!-- DOC HelpContext="Dokumentation" -->
 
@@ -6,95 +6,71 @@
 Eine vollständige Applikationsbeschreibung ist unter folgendem Link verfügbar: https://github.com/openknx/OFM-BinaryInput/blob/v1/doc/Applikationsbeschreibung-Binaereingang.md
 DOCCONTENT -->
 
-Das Modul für Binäreingänge erlaubt eine einfache Definition von Schaltzuständen über einen Binäreingang. Derzeit werden von der zugehörigen Applikation Schalter oder Fensterkontakte unterstützt, keine Impulseingänge, deren Werte gezählt werden sollen.
+Mit dem ADCInput Modul kann man Analoge Messwerte einlesen und sie direkt zum passenden Sensor umwandeln lassen. 
 <!-- DOCEND -->
 
 ## **Allgemein**
 
-Auf dieser Seite sieht man die in der Applikation verwendete Modulversion und die Anzahl der Binäreingänge, die der Benutzer verwenden möchte.
+Auf dieser Seite sieht man die in der Applikation verwendete Modulversion und die Anzahl der Analog-Eingänge, die der Benutzer verwenden möchte.
 
-### **Verfügbare Kanäle**
+### **Kanalauswahl**
 
-Um die Applikation übersichtlicher zu gestalten, kann hier ausgewählt werden, wie viele Kanäle in der Applikation verfügbar und editierbar sind. Die Maximalanzahl der Kanäle hängt von der Firmware des Gerätes ab, dass dieses Modul verwendet.
+Hier kann man jeden einzeln Kanal auswählen und im Beschreibungsfeld auch genauere Information dazu hinterlassen. Das Macht es einfacher später die genaue Funktion des Kanals noch zu verstehen. 
 
-Die ETS ist auch schneller in der Anzeige, wenn sie weniger (leere) Kanäle darstellen muss. Insofern macht es Sinn, nur so viele Kanäle anzuzeigen, wie man wirklich braucht.
+In der Spalte "Funktion" wird der Kanal aktiviert. Es stehen mehrere Auswahlmöglichkeiten bereit. 
 
-## **Eingang *x***
+#### inaktiv
+Damit wird der Kanal deaktiviert. 
 
-Da alle Eingänge gleich aussehen, wird hier nur ein Eingang Beschrieben. In der Applikation wird das *x* durch einen Buchstaben ersetzt, der die Nummer des Binäreingangs repräsentiert.
+#### ADC-Wert (mV)
+Hier kann man sich den Analogwert einlesen lassen und dazu sich den Wert auch gleich passend umwandeln lassen. D.h. wenn man einen analogen Temperatursensor anschließt, kann man hier später in den Kanaleinstellungen den passenden Ausgangs DPT wählen und eine Kennlinie des Sensors hinterlegen. 
+Damit bekommt man direkt den Temperatur-Wert des Sensor ausgegeben. 
 
-<!-- DOC Skip="3" -->
-Folgende Eingaben stehen für die Konfiguration zur Verfügung:
+#### SMT50-Feuchte
+Wenn ein SMT50 Bodenfeuchte-Sensor verwendet wird, kann man sich die ganzen Einstellungen mit DPT und Kennlinie sparen. Hier muss man sich nur noch um das Senden kümmern und das KO verbinden. 
 
-<kbd>![Eingang](pics/Eingang.png)</kbd>
+#### SMT50-Temp
+Wenn ein SMT50 Bodenfeuchte-Sensor verwendet wird, kann man sich die ganzen Einstellungen mit DPT und Kennlinie sparen. Hier muss man sich nur noch um das Senden kümmern und das KO verbinden.
 
-In den folgenden Unterkapiteln werden diese Eingaben beschrieben.
 
-<!-- DOC -->
+## **ADC-Input *x***
+
+Da alle Eingänge gleich aussehen, wird hier nur ein Eingang Beschrieben. In der Applikation wird das *x* durch einen Buchstaben ersetzt, der die Nummer des Analog-Eingangs repräsentiert.
+
 ### **Beschreibung**
 
-Der hier angegebene Name wird an verschiedenen Stellen verwendet, um diesen Kanal wiederzufinden.
+### Korrekturfaktor
+Mit hilfe des Korrekturfaktors können, wenn benötigt, die Toleranzen des Messsystems ausgeglichen werden.
 
-* Seitenbeschreibung des Kanals
-* Name vom Kommunikationsobjekt
+Um die 'vom Device gemessene Spannung' zu bestimmen, muss zuvor der Sensortyp auf 'ADC-Wert(mV)' und die Meßwerteinheit auf 'Spannung (mV)' gestellt werden. Dazu ein passendes KO belegt werden, welches den Wert ausgibt.
 
-Eine aussagekräftige Benennung erlaubt eine einfachere Orientierung innerhalb der Applikation, vor allem wenn man viele Kanäle nutzt.
+Danach kann der Korrekturfaktor bestimmt und eingetragen werden und der Sensortyp und die Meßwerteinheit auf die gewünschte Einheit gestellt werden.
 
+Korrekturfaktor = gemessene Spannung(mV) am Device-Pin / vom Device ausgegebene Spannung(mV)
 
-<!-- DOC -->
-### **Aktiv**
+### Meßwerteinheit (KO)
+Hier kann die gewünschte Einheit/DPT ausgewählt werden. Bein manchen Einheiten gibt es weitere Einstellmöglichgkeiten mit denen man die Kennlinie des angeschlossenen Sensors nachbilden kann.  
 
-Damit der Binäreingang verwendet werden kann, muss er aktiv geschaltet werden.
+<kbd>![Auswahl_DPTs](pics/Auswahl_DPTs.png)</kbd>
 
-<!-- DOC -->
-### **Entprellung**
+Der Sensorwert wird über die Geradengleichung y = m*x + b bestimmt. Ist die Geradengleichung des Sensors nicht bekannt, kann diese über zwei Punkte auf der Kennlinie (x,y) bestimmt werden. 
+Hilfe: bei Google nach "Geradengleichung aus 2 punkten rechner" suchen. Anschließend findet man einfach rechner, wo man die zwei Punkte nur noch eingeben muss. 
 
-Eine Entprellung ist ein Verfahren, das dazu dient, unerwünschte Signale, die bei der Betätigung eines Schalters oder einer Taste entstehen können, zu entfernen. Wenn man beispielsweise eine Taste drückt, kann es vorkommen, dass das Signal mehrfach erfasst wird, was zu ungewollten Effekten führen kann. Die Entprellung sorgt dafür, dass nur das tatsächliche Signal erkannt wird und andere Signale herausgefiltert werden.
+#### Wert m
+Steigung der Gerade
 
-<!-- DOC -->
-### **Geöffnet**
+#### Wert b
+Offset der Gerade
 
-Hier wird festgelegt, welcher Status bei einem geöffneten Stromkreis gesendet werden soll.
-
-#### **Deaktiviert**
-
-Wenn der Status Deaktiviert gewählt wurde, wird beim geöffneten Stromkreis kein Signal gesendet.
-
-#### **Aus**
-
-Beim geöffneten Stromkreis wird ein Aus-Signal gesendet.
-
-#### **Ein**
-
-Beim geöffneten Stromkreis wird ein Ein-Signal gesendet.
-
-
-<!-- DOC -->
-### **Geschlossen**
-
-Hier wird festgelegt, welcher Status bei einem geschlossenen Stromkreis gesendet werden soll.
-
-#### **Deaktiviert**
-
-Wenn der Status Deaktiviert gewählt wurde, wird beim geschlossenen Stromkreis kein Signal gesendet.
-
-#### **Aus**
-
-Beim geschlossenen Stromkreis wird ein Aus-Signal gesendet.
-
-#### **Ein**
-
-Beim geschlossenen Stromkreis wird ein Ein-Signal gesendet.
-
-<!-- DOC -->
-### **Zyklisch senden**
-
+### Zyklisch senden
 Hier kann die Zeit angegeben werden, nach der das letzte gesendete Signal erneut gesendet werden soll. Dieser Vorgang wird ohne Unterbrechung wiederholt.
 
-Wird als Zeit 0 angegeben, wird nicht wiederholt. In einem solchen Falle sollte man "Zyklisch senden" auf Nein stellen.
+### senden bei absoluter Abweichung
+Hier kann der Wert angegeben werden, bei welcher Wertänderung gesendet werden soll
 
-#### **Zeitangabe für zyklisch senden**
+### senden bei relativer Abweichung
+Hier kann der Prozentwert angegeben werden, bei welcher Abweichung gesendet werden soll.
 
-Im Zahlenfeld wird das Zeitintervall eingegeben, über das dahinterliegende Auswahlfeld die Zeiteinheit. Es können Intervalle von bis zu 16.000 Sekunden, Minuten oder Stunden angegeben werden.
-
+### Wert glätten: P = 
+NICHT IMPLEMENTIERT !!!
 

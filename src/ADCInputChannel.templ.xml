@@ -184,7 +184,7 @@
                                 Zyklisch Senden Absolut (mV) -->
                               <ParameterRefRef RefId="%AID%_UP-%TT%%CC%004_R-%TT%%CC%00401" IndentLevel="1" HelpContext="ADC-KanalEinstellungen"/>  <!--
                                 Zyklisch Senden Relativ -->
-                              <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00001" HelpContext="ADC-KanalEinstellungen"/>  <!-- KO:
+                              <ComObjectRefRef RefId="%AID%_O-%TT%%CC%000_R-%TT%%CC%00001"/>  <!-- KO:
                                 ADC Wert (mV)-->
                             </when>
                             <when test="1">  <!-- Temperatur-->

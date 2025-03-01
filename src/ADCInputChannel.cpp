@@ -195,7 +195,9 @@ void ADCInputChannel::processInput()
 
 
     default:
-    SERIAL_PORT.print("Wrong ADC Type Parameter");
+    #ifdef InputADC_Output
+      SERIAL_PORT.print("Wrong ADC Type Parameter");
+    #endif
     break;
      }
 

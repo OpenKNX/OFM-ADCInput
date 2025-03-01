@@ -76,10 +76,6 @@
             <ParameterRefs>
               <ParameterRef Id="%AID%_P-%TT%00001_R-%TT%0000101" RefId="%AID%_P-%TT%00001" />
             </ParameterRefs>
-            <ComObjectTable>
-            </ComObjectTable>
-            <ComObjectRefs>
-            </ComObjectRefs>
           </Static>
           <Dynamic>
               <Channel Id="%AID%_CH-%PREFIX%" Name="Standard" Number="%PREFIX%" Text="Analogeingänge" Icon="alpha-v-circle-outline">

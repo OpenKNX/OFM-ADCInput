@@ -57,7 +57,7 @@ void ADCInputModule::setup()
 
 void ADCInputModule::loop() {
 
-  if (delayCheck(_lastPollingTime, 1000)) {
+  if (delayCheck(_lastPollingTime, 100)) {
     _lastPollingTime = delayTimerInit();
 
     processInput();

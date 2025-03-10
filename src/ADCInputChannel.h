@@ -23,7 +23,6 @@ class ADCInputChannel : public OpenKNX::Channel
     long _adcValue;
 
     uint32_t _lastPeriodicSend = 0;
-    uint32_t _lastPollingTime = 0;
 
     /*
     bool _paramActive;

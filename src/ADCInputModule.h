@@ -21,6 +21,7 @@ class ADCInputModule : public OpenKNX::Module
     void processInput();
   
     long adc_Value[AS1115_MAX_CH] = {1}; 
+    uint32_t _lastPollingTime = 0;
 
     ADCInputChannel* _channels[AS1115_MAX_CH];
 };

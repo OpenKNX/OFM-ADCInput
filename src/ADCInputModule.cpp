@@ -57,10 +57,14 @@ void ADCInputModule::setup()
 
 void ADCInputModule::loop() {
 
+  if (delayCheck(_lastPollingTime, 1000)) {
+    _lastPollingTime = delayTimerInit();
+
     processInput();
 
-  for (uint8_t i = 0; i < MIN(ADC_ChannelCount,AS1115_MAX_CH); i++)
-    _channels[i]->loop();
+    for (uint8_t i = 0; i < MIN(ADC_ChannelCount,AS1115_MAX_CH); i++)
+      _channels[i]->loop();
+  }
 }
 
 void ADCInputModule::processInput() {

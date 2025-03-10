@@ -38,11 +38,8 @@ void ADCInputChannel::setup() {
 
 void ADCInputChannel::loop() {
   
-  if (delayCheck(_lastPollingTime, 1000)) {
-    _lastPollingTime = delayTimerInit();
     processInput();
     //processPeriodicSend();
-  }
 }
 
 void ADCInputChannel::processInput()

@@ -38,8 +38,11 @@ void ADCInputChannel::setup() {
 
 void ADCInputChannel::loop() {
   
-  processInput();
-  //processPeriodicSend();
+  if (delayCheck(_lastPollingTime, 1000)) {
+    _lastPollingTime = delayTimerInit();
+    processInput();
+    //processPeriodicSend();
+  }
 }
 
 void ADCInputChannel::processInput()
@@ -203,12 +206,13 @@ void ADCInputChannel::processInput()
 
      // first run - skip
   if (_lastPeriodicSend == 0) {
-    _lastPeriodicSend = millis();
+    _lastPeriodicSend = delayTimerInit();
     return;
   }
 
-  if (delayCheck(_lastPeriodicSend, ParamADC_CHSendcycletime * 1000)) {
-    _lastPeriodicSend = millis();
+  uint16_t periodicSend = ParamADC_CHSendcycletime;
+  if (periodicSend > 0 && delayCheck(_lastPeriodicSend, periodicSend * 1000)) {
+    _lastPeriodicSend = delayTimerInit();
     lSend = true;
   }
 
@@ -241,25 +245,26 @@ void ADCInputChannel::processPeriodicSend() {
 
   // first run - skip
   if (_lastPeriodicSend == 0) {
-    _lastPeriodicSend = millis();
+    _lastPeriodicSend = delayTimerInit();
     return;
   }
 
   if (delayCheck(_lastPeriodicSend, paramValue)) {
-    _lastPeriodicSend = millis();
+    _lastPeriodicSend = delayTimerInit();
     sendState();
   }
 }
 
 void ADCInputChannel::sendState() {
 
+#ifdef InputADC_Output
   Serial.print("----> ADC_");
   Serial.print(_channelIndex);
   Serial.print(": ");
   Serial.print(_adcValue);
   Serial.print(": ");
   Serial.println(getPinInputVoltage());
-
+#endif
   logDebugP("sendState: %i", _adcValue);
   
   KoADC_ChannelOutput.objectWritten();

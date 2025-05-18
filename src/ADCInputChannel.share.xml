@@ -69,6 +69,12 @@
                   <Enumeration Text="Prozent (%)" Value="9" Id="%ENID%" />
                 </TypeRestriction>
               </ParameterType>
+              <ParameterType Id="%AID%_PT-SMT50DptType" Name="SMT50DptType">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="DPT5" Value="0" Id="%ENID%" />
+                  <Enumeration Text="DPT9" Value="1" Id="%ENID%" />
+                </TypeRestriction>
+              </ParameterType>
             </ParameterTypes>
             <Parameters>
               <Parameter Id="%AID%_P-%TT%00001" Name="VisibleChannels" ParameterType="%AID%_PT-ADCNumChannels" Text="Verfügbare Kanäle" Value="%ADC_NumChannelsDefault%" SuffixText=" von %N%" />

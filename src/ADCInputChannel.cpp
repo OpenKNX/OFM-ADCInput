@@ -160,7 +160,6 @@ void ADCInputChannel::processInput()
                 SERIAL_PORT.print("Abs ");
 #endif
             }
-
             // we always store the new value in KO, even it it is not sent (to satisfy potential read request)
             if (ParamADC_CHSMT50DPTType== 0)
             {

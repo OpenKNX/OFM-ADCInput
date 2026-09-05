@@ -1,3 +1,11 @@
+//
+//    FILE: ADS1X15.cpp
+//  AUTHOR: Rob Tillaart
+// VERSION: 0.4.2
+//    DATE: 2013-03-24
+// PURPOSE: Arduino library for ADS1015 and ADS1115
+//     URL: https://github.com/RobTillaart/ADS1X15
+
 #include "ADS1X15.h"
 
 #define ADS1015_CONVERSION_DELAY 1

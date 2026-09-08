@@ -194,7 +194,7 @@
                 DatapointType="DPST-7-11" TextParameterRefId="%AID%_P-%TT%%CC%000_R-%TT%%CC%00001" />
               <ComObjectRef Id="%AID%_O-%TT%%CC%003_R-%TT%%CC%00301" RefId="%AID%_O-%TT%%CC%003"
                 Name="Out_Kabelbruch_DPT_01" Text="ADC Input %C%: {{0:-}}"
-                FunctionText="Kabelbruch_Detection" Priority="Low" ObjectSize="1 Bit"
+                FunctionText="Kabelbruch" Priority="Low" ObjectSize="1 Bit"
                 ReadFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled"
                 DatapointType="DPST-1-2" TextParameterRefId="%AID%_P-%TT%%CC%000_R-%TT%%CC%00001" />
             </ComObjectRefs>

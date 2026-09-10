@@ -119,20 +119,15 @@ void ADCInputChannel::processInput()
             {
                 lSend = true;
                 logDebugP("ABS");
-#ifdef InputADC_Output
-                debugOut += " Abs ";
-#endif
             }
 
             // STEP 3b: Check if Change detected
             lAbsolute = ParamADC_CHSendenRelativ;
-            if (lAbsolute > 0 && value.ladcValue > 0.2 && (abs(value.ladcValue - valueOld.ladcValue)) >= value.ladcValue / 100 * lAbsolute)
+            absValue = abs(value.ladcValue);
+            if (lAbsolute > 0 && (((absValue / 100.0 * lAbsolute) > 0.0005) || absValue == 0) && (abs(value.ladcValue - valueOld.ladcValue)) > value.ladcValue / 100.0 * lAbsolute)
             {
                 lSend = true;
                 logDebugP("REL");
-#ifdef InputADC_Output
-                debugOut += " Rel ";
-#endif
             }
 
             // STEP 4: Preset KO
@@ -212,7 +207,7 @@ void ADCInputChannel::processInput()
             // senden bei Wertänderung Relativ
             lAbsolute = ParamADC_CHSendenRelativ;
             absValue = abs(value.ladcValue);
-            if (lAbsolute > 0 && (absValue / 100 * lAbsolute) > 0.1 && abs(absValue - abs(valueOld.ladcValue)) >= (absValue / 100 * lAbsolute))
+            if (lAbsolute > 0 && (((absValue / 100.0 * lAbsolute) > 0.0005) || absValue == 0) && abs(absValue - abs(valueOld.ladcValue)) > (abs(value.ladcValue) / 100.0 * lAbsolute))
             {
                 lSend = true;
             }

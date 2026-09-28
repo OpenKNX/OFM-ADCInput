@@ -139,6 +139,7 @@
                   type="template" prefix="ADC" IsInner="true" />
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Auswahl Hardware" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Bitte Kontexthilfe lesen !!!" />
                 <ParameterRefRef RefId="%AID%_UP-%TT%00002_R-%TT%0000201" IndentLevel="1" HelpContext="ADC-HW-Version" />
               </ParameterBlock>
             </Channel>

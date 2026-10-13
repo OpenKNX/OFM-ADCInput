@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="../../../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
 
   <op:config name="%ADC_NumChannelsDefault%" value="2" />
 
   <ManufacturerData>
-    <Manufacturer>
+    <Manufacturer RefId="M-00FA">
       <ApplicationPrograms>
-        <ApplicationProgram>
+        <ApplicationProgram Id="%AID%" ApplicationNumber="102" ApplicationVersion="21" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
           <Static>
             <ParameterTypes>
               <ParameterType Id="%AID%_PT-ADCNumChannels" Name="ADCNumChannels">
@@ -42,10 +42,10 @@
                   <Enumeration Text="HW4.2 (0-12V)" Value="0" Id="%ENID%" />
                   <Enumeration Text="HW4.2 (0-8V)" Value="1" Id="%ENID%" />
                 </TypeRestriction>
-              </ParameterType>
+              </ParameterType> 
               <ParameterType Id="%AID%_PT-ADCSensorCalc" Name="ADCSensorCalc">
                 <TypeRestriction Base="Value" SizeInBit="8">
-                  <Enumeration Text="inaktiv" Value="0" Id="%ENID%" />
+                  <Enumeration Text="Deaktiviert" Value="0" Id="%ENID%" />
                   <Enumeration Text="ADC-Wert (mV)" Value="1" Id="%ENID%" />
                   <Enumeration Text="SMT50-Feuchte" Value="2" Id="%ENID%" />
                   <Enumeration Text="SMT50-Temp" Value="3" Id="%ENID%" />
@@ -115,33 +115,36 @@
           </Static>
           <Dynamic>
             <Channel Id="%AID%_CH-%PREFIX%" Name="Standard" Number="%PREFIX%" Text="Analogeingänge" Icon="alpha-v-circle-outline">
-              <ParameterBlock Id="%AID%_PB-nnn" Name="ADC" Text="Allgemein" Icon="cog-outline" HelpContext="ADC-Dokumentation" ShowInComObjectTree="true">
+              <ParameterBlock Id="%AID%_PB-nnn" Text="Allgemein" Icon="cog-outline" HelpContext="ADC-Dokumentation" ShowInComObjectTree="true">
                 <!-- Version -->
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Analogeingänge" UIHint="Headline" />
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Version: %ModuleVersion%" />
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
 
-                <!-- Verfuegbare-Kanaele -->
-                <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanalauswahl" UIHint="Headline" />
-                <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Table" Text="#">
-                  <Rows>
-                    <op:include href="ADCInputChannel.templ.xml" xpath="//Dynamic/Channel/ParameterBlock[@Name='Row-List']/Rows/*"
-                      type="template" prefix="ADC" IsInner="true" />
-                  </Rows>
-                  <Columns>
-                    <Column Id="%AID%_PB-nnn_C-1" Width="60%" Text="Beschreibung des Eingangs" />
-                    <Column Id="%AID%_PB-nnn_C-2" Width="40%" Text="Funktion" />
-                  </Columns>
-                  <op:include href="ADCInputChannel.templ.xml" xpath="//Dynamic/Channel/ParameterBlock[@Name='Channel-List']/*"
-                    type="template" prefix="ADC" IsInner="true" />
-                </ParameterBlock>
-                <op:include href="ADCInputChannel.templ.xml" xpath="//Dynamic/ChannelIndependentBlock/*"
-                  type="template" prefix="ADC" IsInner="true" />
-                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Auswahl Hardware" UIHint="Headline" />
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Bitte Kontexthilfe lesen !!!" />
                 <ParameterRefRef RefId="%AID%_UP-%TT%00002_R-%TT%0000201" IndentLevel="1" HelpContext="ADC-HW-Version" />
               </ParameterBlock>
+              <ParameterBlock Id="%AID%_PB-nnn" Text="Kanalauswahl" Icon="format-list-bulleted-type" HelpContext="BASE-ChannelSelect">
+                <!-- Verfuegbare-Kanaele -->
+                <!-- <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanalauswahl" UIHint="Headline" /> -->
+                <ParameterBlock Id="%AID%_PB-nnn" Inline="true" Layout="Grid">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Width="15%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Width="35%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Width="55%" />
+                  </Columns>
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,1" UIHint="Headline" Text="Kanal" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,2" UIHint="Headline" Text="Funktion" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Cell="1,3" UIHint="Headline" Text="Beschreibung" />
+                </ParameterBlock>
+                <op:include href="ADCInputChannel.templ.xml" xpath="//ApplicationProgram/Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Settings']/*" type="template" prefix="ADC" IsInner="true" />
+              </ParameterBlock>
+              <!-- followed by all channels -->
+              <op:include href="ADCInputChannel.templ.xml" xpath="//ApplicationProgram/Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Channel']/*" type="template" prefix="ADC" IsInner="true" />
             </Channel>
           </Dynamic>
         </ApplicationProgram>
